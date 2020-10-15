@@ -1,0 +1,32 @@
+﻿<div class="row">
+    <div class="col-md-12">
+
+        @*<link href="~/Content/alert/default.css" rel="stylesheet" />*@
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-success">
+                <strong>Success!</strong> @TempData["Message"].ToString()
+            </div>
+        }
+        @if (TempData["Warning"] != null)
+        {
+            <div class="alert alert-warning">
+                <strong>Warning!</strong> @TempData["Warning"].ToString()
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                <strong>Error!</strong> @TempData["Error"].ToString()
+            </div>
+        }
+        @if (TempData["Info"] != null)
+        {
+            <div class="alert alert-info">
+                <strong>Please look into this!</strong> @TempData["Info"].ToString()
+            </div>
+        }
+
+    </div>
+</div>

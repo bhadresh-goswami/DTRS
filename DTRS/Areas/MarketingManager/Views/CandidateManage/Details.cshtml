@@ -1,0 +1,75 @@
+﻿@model DTRS.Models.CandidateMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_mainDesignLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CandidateMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CandidateName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CandidateName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CandidateEmailId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CandidateEmailId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MarketingEmailId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MarketingEmailId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MarketingNumver)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MarketingNumver)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InsertBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InsertBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Technology)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Technology)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CandidateId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

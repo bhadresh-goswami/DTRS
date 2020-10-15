@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c21229b167f74a9ca711c80030aae2b6" Name="Diagram1">
+        <EntityTypeShape EntityType="dbReportingSystemModel.RoleMaster" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbReportingSystemModel.UserLoginMaster" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="dbReportingSystemModel.FK__UserLogin__UserR__37A5467C" />
+        <EntityTypeShape EntityType="dbReportingSystemModel.CandidateMaster" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="dbReportingSystemModel.TechnologyMaster" Width="1.5" PointX="2.75" PointY="4.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
