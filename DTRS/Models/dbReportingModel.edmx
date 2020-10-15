@@ -17,6 +17,26 @@
           <Property Name="MarketingNumver" Type="varchar" MaxLength="20" />
           <Property Name="InsertBy" Type="varchar" MaxLength="100" />
           <Property Name="Technology" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="AssignTo" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="InterviewMaster">
+          <Key>
+            <PropertyRef Name="IId" />
+          </Key>
+          <Property Name="IId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDate" Type="date" Nullable="false" />
+          <Property Name="ITime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+          <Property Name="RefSId" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="AssignTo" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JobPortalMaster">
+          <Key>
+            <PropertyRef Name="JPId" />
+          </Key>
+          <Property Name="JPId" Type="int" Nullable="false" />
+          <Property Name="JobPortalTitle" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="RoleMaster">
           <Key>
@@ -25,6 +45,23 @@
           <Property Name="RoleId" Type="int" Nullable="false" />
           <Property Name="RoleTitle" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="IsEnabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubmissionMaster">
+          <Key>
+            <PropertyRef Name="SId" />
+          </Key>
+          <Property Name="SId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SDate" Type="date" Nullable="false" />
+          <Property Name="STime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="SBy" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="CandidateName" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Technology" Type="varchar" MaxLength="400" Nullable="false" />
+          <Property Name="Location" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Rate" Type="money" Nullable="false" />
+          <Property Name="ClientName" Type="varchar(max)" Nullable="false" />
+          <Property Name="VendorName" Type="varchar(max)" Nullable="false" />
+          <Property Name="ContactEmailId" Type="varchar(max)" Nullable="false" />
+          <Property Name="VendorCompanyName" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="TechnologyMaster">
           <Key>
@@ -45,6 +82,20 @@
           <Property Name="IsLogin" Type="bit" Nullable="false" />
           <Property Name="UserRole" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK__Interview__RefSI__619B8048">
+          <End Role="SubmissionMaster" Type="Self.SubmissionMaster" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="InterviewMaster" Type="Self.InterviewMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubmissionMaster">
+              <PropertyRef Name="SId" />
+            </Principal>
+            <Dependent Role="InterviewMaster">
+              <PropertyRef Name="RefSId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__UserLogin__UserR__37A5467C">
           <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -61,9 +112,16 @@
         </Association>
         <EntityContainer Name="dbReportingSystemModelStoreContainer">
           <EntitySet Name="CandidateMaster" EntityType="Self.CandidateMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InterviewMaster" EntityType="Self.InterviewMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobPortalMaster" EntityType="Self.JobPortalMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoleMaster" EntityType="Self.RoleMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubmissionMaster" EntityType="Self.SubmissionMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TechnologyMaster" EntityType="Self.TechnologyMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLoginMaster" EntityType="Self.UserLoginMaster" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Interview__RefSI__619B8048" Association="Self.FK__Interview__RefSI__619B8048">
+            <End Role="SubmissionMaster" EntitySet="SubmissionMaster" />
+            <End Role="InterviewMaster" EntitySet="InterviewMaster" />
+          </AssociationSet>
           <AssociationSet Name="FK__UserLogin__UserR__37A5467C" Association="Self.FK__UserLogin__UserR__37A5467C">
             <End Role="RoleMaster" EntitySet="RoleMaster" />
             <End Role="UserLoginMaster" EntitySet="UserLoginMaster" />
@@ -73,25 +131,91 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbReportingSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="dbReportingSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CandidateMasters" EntityType="dbReportingSystemModel.CandidateMaster" />
+          <EntitySet Name="InterviewMasters" EntityType="dbReportingSystemModel.InterviewMaster" />
+          <EntitySet Name="JobPortalMasters" EntityType="dbReportingSystemModel.JobPortalMaster" />
+          <EntitySet Name="RoleMasters" EntityType="dbReportingSystemModel.RoleMaster" />
+          <EntitySet Name="SubmissionMasters" EntityType="dbReportingSystemModel.SubmissionMaster" />
+          <EntitySet Name="TechnologyMasters" EntityType="dbReportingSystemModel.TechnologyMaster" />
+          <EntitySet Name="UserLoginMasters" EntityType="dbReportingSystemModel.UserLoginMaster" />
+          <AssociationSet Name="FK__Interview__RefSI__619B8048" Association="dbReportingSystemModel.FK__Interview__RefSI__619B8048">
+            <End Role="SubmissionMaster" EntitySet="SubmissionMasters" />
+            <End Role="InterviewMaster" EntitySet="InterviewMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserLogin__UserR__37A5467C" Association="dbReportingSystemModel.FK__UserLogin__UserR__37A5467C">
+            <End Role="RoleMaster" EntitySet="RoleMasters" />
+            <End Role="UserLoginMaster" EntitySet="UserLoginMasters" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CandidateMaster">
+          <Key>
+            <PropertyRef Name="CandidateId" />
+          </Key>
+          <Property Name="CandidateId" Type="Int32" Nullable="false" />
+          <Property Name="CandidateName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CandidateEmailId" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MarketingEmailId" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MarketingNumver" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="InsertBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Technology" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AssignTo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="InterviewMaster">
+          <Key>
+            <PropertyRef Name="IId" />
+          </Key>
+          <Property Name="IId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ITime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RefSId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AssignTo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SubmissionMaster" Relationship="dbReportingSystemModel.FK__Interview__RefSI__619B8048" FromRole="InterviewMaster" ToRole="SubmissionMaster" />
+        </EntityType>
+        <EntityType Name="JobPortalMaster">
+          <Key>
+            <PropertyRef Name="JPId" />
+          </Key>
+          <Property Name="JPId" Type="Int32" Nullable="false" />
+          <Property Name="JobPortalTitle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="RoleMaster">
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
           <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <Property Name="RoleTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RoleTitle" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="UserLoginMasters" Relationship="dbReportingSystemModel.FK__UserLogin__UserR__37A5467C" FromRole="RoleMaster" ToRole="UserLoginMaster" />
         </EntityType>
-        <EntityContainer Name="dbReportingSystemEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="RoleMasters" EntityType="Self.RoleMaster" />
-          <EntitySet Name="UserLoginMasters" EntityType="dbReportingSystemModel.UserLoginMaster" />
-          <AssociationSet Name="FK__UserLogin__UserR__37A5467C" Association="dbReportingSystemModel.FK__UserLogin__UserR__37A5467C">
-            <End Role="RoleMaster" EntitySet="RoleMasters" />
-            <End Role="UserLoginMaster" EntitySet="UserLoginMasters" />
-          </AssociationSet>
-          <EntitySet Name="CandidateMasters" EntityType="dbReportingSystemModel.CandidateMaster" />
-          <EntitySet Name="TechnologyMasters" EntityType="dbReportingSystemModel.TechnologyMaster" />
-        </EntityContainer>
+        <EntityType Name="SubmissionMaster">
+          <Key>
+            <PropertyRef Name="SId" />
+          </Key>
+          <Property Name="SId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="STime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="SBy" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CandidateName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Technology" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Rate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ClientName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VendorName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ContactEmailId" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VendorCompanyName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="InterviewMasters" Relationship="dbReportingSystemModel.FK__Interview__RefSI__619B8048" FromRole="SubmissionMaster" ToRole="InterviewMaster" />
+        </EntityType>
+        <EntityType Name="TechnologyMaster">
+          <Key>
+            <PropertyRef Name="TechId" />
+          </Key>
+          <Property Name="TechId" Type="Int32" Nullable="false" />
+          <Property Name="TechName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="UserLoginMaster">
           <Key>
             <PropertyRef Name="LoginId" />
@@ -105,6 +229,20 @@
           <Property Name="UserRole" Type="Int32" Nullable="false" />
           <NavigationProperty Name="RoleMaster" Relationship="dbReportingSystemModel.FK__UserLogin__UserR__37A5467C" FromRole="UserLoginMaster" ToRole="RoleMaster" />
         </EntityType>
+        <Association Name="FK__Interview__RefSI__619B8048">
+          <End Type="dbReportingSystemModel.SubmissionMaster" Role="SubmissionMaster" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="dbReportingSystemModel.InterviewMaster" Role="InterviewMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubmissionMaster">
+              <PropertyRef Name="SId" />
+            </Principal>
+            <Dependent Role="InterviewMaster">
+              <PropertyRef Name="RefSId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__UserLogin__UserR__37A5467C">
           <End Type="dbReportingSystemModel.RoleMaster" Role="RoleMaster" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -119,38 +257,80 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="CandidateMaster">
-          <Key>
-            <PropertyRef Name="CandidateId" />
-          </Key>
-          <Property Name="CandidateId" Type="Int32" Nullable="false" />
-          <Property Name="CandidateName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="CandidateEmailId" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="MarketingEmailId" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ContactNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="MarketingNumver" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="InsertBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Technology" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="TechnologyMaster">
-          <Key>
-            <PropertyRef Name="TechId" />
-          </Key>
-          <Property Name="TechId" Type="Int32" Nullable="false" />
-          <Property Name="TechName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="dbReportingSystemModelStoreContainer" CdmEntityContainer="dbReportingSystemEntities">
+          <EntitySetMapping Name="CandidateMasters">
+            <EntityTypeMapping TypeName="dbReportingSystemModel.CandidateMaster">
+              <MappingFragment StoreEntitySet="CandidateMaster">
+                <ScalarProperty Name="AssignTo" ColumnName="AssignTo" />
+                <ScalarProperty Name="Technology" ColumnName="Technology" />
+                <ScalarProperty Name="InsertBy" ColumnName="InsertBy" />
+                <ScalarProperty Name="MarketingNumver" ColumnName="MarketingNumver" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="MarketingEmailId" ColumnName="MarketingEmailId" />
+                <ScalarProperty Name="CandidateEmailId" ColumnName="CandidateEmailId" />
+                <ScalarProperty Name="CandidateName" ColumnName="CandidateName" />
+                <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InterviewMasters">
+            <EntityTypeMapping TypeName="dbReportingSystemModel.InterviewMaster">
+              <MappingFragment StoreEntitySet="InterviewMaster">
+                <ScalarProperty Name="AssignTo" ColumnName="AssignTo" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="RefSId" ColumnName="RefSId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ITime" ColumnName="ITime" />
+                <ScalarProperty Name="IDate" ColumnName="IDate" />
+                <ScalarProperty Name="IId" ColumnName="IId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobPortalMasters">
+            <EntityTypeMapping TypeName="dbReportingSystemModel.JobPortalMaster">
+              <MappingFragment StoreEntitySet="JobPortalMaster">
+                <ScalarProperty Name="JobPortalTitle" ColumnName="JobPortalTitle" />
+                <ScalarProperty Name="JPId" ColumnName="JPId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="RoleMasters">
             <EntityTypeMapping TypeName="dbReportingSystemModel.RoleMaster">
               <MappingFragment StoreEntitySet="RoleMaster">
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="RoleTitle" ColumnName="RoleTitle" />
                 <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="RoleTitle" ColumnName="RoleTitle" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubmissionMasters">
+            <EntityTypeMapping TypeName="dbReportingSystemModel.SubmissionMaster">
+              <MappingFragment StoreEntitySet="SubmissionMaster">
+                <ScalarProperty Name="VendorCompanyName" ColumnName="VendorCompanyName" />
+                <ScalarProperty Name="ContactEmailId" ColumnName="ContactEmailId" />
+                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Technology" ColumnName="Technology" />
+                <ScalarProperty Name="CandidateName" ColumnName="CandidateName" />
+                <ScalarProperty Name="SBy" ColumnName="SBy" />
+                <ScalarProperty Name="STime" ColumnName="STime" />
+                <ScalarProperty Name="SDate" ColumnName="SDate" />
+                <ScalarProperty Name="SId" ColumnName="SId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TechnologyMasters">
+            <EntityTypeMapping TypeName="dbReportingSystemModel.TechnologyMaster">
+              <MappingFragment StoreEntitySet="TechnologyMaster">
+                <ScalarProperty Name="TechName" ColumnName="TechName" />
+                <ScalarProperty Name="TechId" ColumnName="TechId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -164,28 +344,6 @@
                 <ScalarProperty Name="EmailId" ColumnName="EmailId" />
                 <ScalarProperty Name="RocketUserName" ColumnName="RocketUserName" />
                 <ScalarProperty Name="LoginId" ColumnName="LoginId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CandidateMasters">
-            <EntityTypeMapping TypeName="dbReportingSystemModel.CandidateMaster">
-              <MappingFragment StoreEntitySet="CandidateMaster">
-                <ScalarProperty Name="Technology" ColumnName="Technology" />
-                <ScalarProperty Name="InsertBy" ColumnName="InsertBy" />
-                <ScalarProperty Name="MarketingNumver" ColumnName="MarketingNumver" />
-                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
-                <ScalarProperty Name="MarketingEmailId" ColumnName="MarketingEmailId" />
-                <ScalarProperty Name="CandidateEmailId" ColumnName="CandidateEmailId" />
-                <ScalarProperty Name="CandidateName" ColumnName="CandidateName" />
-                <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TechnologyMasters">
-            <EntityTypeMapping TypeName="dbReportingSystemModel.TechnologyMaster">
-              <MappingFragment StoreEntitySet="TechnologyMaster">
-                <ScalarProperty Name="TechName" ColumnName="TechName" />
-                <ScalarProperty Name="TechId" ColumnName="TechId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

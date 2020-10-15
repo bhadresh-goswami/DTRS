@@ -12,16 +12,9 @@ namespace DTRS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CandidateMaster
+    public partial class JobPortalMaster
     {
-        public int CandidateId { get; set; }
-        public string CandidateName { get; set; }
-        public string CandidateEmailId { get; set; }
-        public string MarketingEmailId { get; set; }
-        public string ContactNumber { get; set; }
-        public string MarketingNumver { get; set; }
-        public string InsertBy { get; set; }
-        public string Technology { get; set; }
-        public string AssignTo { get; set; }
+        public int JPId { get; set; }
+        public string JobPortalTitle { get; set; }
     }
 }

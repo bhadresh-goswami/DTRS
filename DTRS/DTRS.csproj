@@ -169,6 +169,7 @@
     <Compile Include="Areas\MarketingManager\Controllers\CandidateManageController.cs" />
     <Compile Include="Areas\MarketingManager\Controllers\DashboardController.cs" />
     <Compile Include="Areas\MarketingManager\MarketingManagerAreaRegistration.cs" />
+    <Compile Include="Areas\Recruiter\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Recruiter\RecruiterAreaRegistration.cs" />
     <Compile Include="Areas\TechnicalExpert\TechnicalExpertAreaRegistration.cs" />
     <Compile Include="Areas\TechnicalLead\TechnicalLeadAreaRegistration.cs" />
@@ -197,10 +198,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dbReportingModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\InterviewMaster.cs">
+      <DependentUpon>dbReportingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JobPortalMaster.cs">
+      <DependentUpon>dbReportingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Login\LoginModel.cs" />
     <Compile Include="Models\RoleMaster.cs">
       <DependentUpon>dbReportingModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SubmissionMaster.cs">
+      <DependentUpon>dbReportingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Submission\DashboardSubmissionModel.cs" />
     <Compile Include="Models\TechnologyMaster.cs">
       <DependentUpon>dbReportingModel.tt</DependentUpon>
     </Compile>
@@ -5078,6 +5089,7 @@
     <Content Include="Areas\MarketingManager\Views\CandidateManage\Details.cshtml" />
     <Content Include="Areas\MarketingManager\Views\CandidateManage\Edit.cshtml" />
     <Content Include="Areas\MarketingManager\Views\CandidateManage\Index.cshtml" />
+    <Content Include="Areas\Recruiter\Views\Dashboard\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -5102,13 +5114,15 @@
     <Content Include="Views\Shared\_alertShow.cshtml" />
     <Content Include="Views\Shared\_mainDesignLayout.cshtml" />
     <Content Include="Views\Shared\_addCandidate.cshtml" />
+    <Content Include="Views\Shared\_addSubmission.cshtml" />
+    <Content Include="Views\Shared\_topBarCount.cshtml" />
+    <Content Include="Views\Shared\_topBarCountRec.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\admin\Models\" />
     <Folder Include="Areas\admin\Views\Shared\" />
     <Folder Include="Areas\MarketingManager\Models\" />
     <Folder Include="Areas\MarketingManager\Views\Shared\" />
-    <Folder Include="Areas\Recruiter\Controllers\" />
     <Folder Include="Areas\Recruiter\Models\" />
     <Folder Include="Areas\Recruiter\Views\Shared\" />
     <Folder Include="Areas\TechnicalExpert\Controllers\" />

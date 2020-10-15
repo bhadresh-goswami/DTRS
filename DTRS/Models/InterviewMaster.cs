@@ -12,16 +12,16 @@ namespace DTRS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CandidateMaster
+    public partial class InterviewMaster
     {
-        public int CandidateId { get; set; }
-        public string CandidateName { get; set; }
-        public string CandidateEmailId { get; set; }
-        public string MarketingEmailId { get; set; }
-        public string ContactNumber { get; set; }
-        public string MarketingNumver { get; set; }
-        public string InsertBy { get; set; }
-        public string Technology { get; set; }
+        public int IId { get; set; }
+        public System.DateTime IDate { get; set; }
+        public System.TimeSpan ITime { get; set; }
+        public string Description { get; set; }
+        public int RefSId { get; set; }
+        public string Status { get; set; }
         public string AssignTo { get; set; }
+    
+        public virtual SubmissionMaster SubmissionMaster { get; set; }
     }
 }
