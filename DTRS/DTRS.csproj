@@ -138,6 +138,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\admin\adminAreaRegistration.cs" />
     <Compile Include="Areas\admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\admin\Controllers\RoleManageController.cs" />
+    <Compile Include="Areas\admin\Controllers\UserLoginManageController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
     <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
@@ -5090,6 +5092,16 @@
     <Content Include="Areas\MarketingManager\Views\CandidateManage\Edit.cshtml" />
     <Content Include="Areas\MarketingManager\Views\CandidateManage\Index.cshtml" />
     <Content Include="Areas\Recruiter\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\admin\Views\RoleManage\Create.cshtml" />
+    <Content Include="Areas\admin\Views\RoleManage\Delete.cshtml" />
+    <Content Include="Areas\admin\Views\RoleManage\Details.cshtml" />
+    <Content Include="Areas\admin\Views\RoleManage\Edit.cshtml" />
+    <Content Include="Areas\admin\Views\RoleManage\Index.cshtml" />
+    <Content Include="Areas\admin\Views\UserLoginManage\Create.cshtml" />
+    <Content Include="Areas\admin\Views\UserLoginManage\Delete.cshtml" />
+    <Content Include="Areas\admin\Views\UserLoginManage\Details.cshtml" />
+    <Content Include="Areas\admin\Views\UserLoginManage\Edit.cshtml" />
+    <Content Include="Areas\admin\Views\UserLoginManage\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<DTRS.Models.UserLoginMaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_mainDesignLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RocketUserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsEnabled)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsLogin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoleMaster.RoleTitle)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RocketUserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsEnabled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsLogin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoleMaster.RoleTitle)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.LoginId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.LoginId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.LoginId })
+        </td>
+    </tr>
+}
+
+</table>

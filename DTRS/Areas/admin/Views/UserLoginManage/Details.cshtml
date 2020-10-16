@@ -1,0 +1,67 @@
+﻿@model DTRS.Models.UserLoginMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_mainDesignLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UserLoginMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RocketUserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RocketUserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsEnabled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsEnabled)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsLogin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsLogin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoleMaster.RoleTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoleMaster.RoleTitle)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LoginId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

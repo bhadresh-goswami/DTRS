@@ -8,115 +8,109 @@ using System.Web;
 using System.Web.Mvc;
 using DTRS.Models;
 
-namespace DTRS.Areas.MarketingManager.Controllers
+namespace DTRS.Areas.admin.Controllers
 {
-    public class CandidateManageController : Controller
+    public class RoleManageController : Controller
     {
         private dbReportingSystemEntities db = new dbReportingSystemEntities();
 
-        // GET: MarketingManager/CandidateManage
+        // GET: admin/RoleManage
         public ActionResult Index()
         {
-            return View(db.CandidateMasters.ToList());
+            return View(db.RoleMasters.ToList());
         }
 
-        // GET: MarketingManager/CandidateManage/Details/5
+        // GET: admin/RoleManage/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CandidateMaster candidateMaster = db.CandidateMasters.Find(id);
-            if (candidateMaster == null)
+            RoleMaster roleMaster = db.RoleMasters.Find(id);
+            if (roleMaster == null)
             {
                 return HttpNotFound();
             }
-            return View(candidateMaster);
+            return View(roleMaster);
         }
 
-        // GET: MarketingManager/CandidateManage/Create
+        // GET: admin/RoleManage/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: MarketingManager/CandidateManage/Create
+        // POST: admin/RoleManage/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create([Bind(Include = "CandidateId,CandidateName,VisaStatus,CandidateEmailId,MarketingEmailId,ContactNumber,MarketingNumver,InsertBy,Technology")] CandidateMaster candidateMaster)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "RoleId,RoleTitle,IsEnabled")] RoleMaster roleMaster)
         {
-            try
+            if (ModelState.IsValid)
             {
-                var users = db.CandidateMasters.OrderByDescending(a => a.CandidateId).ToList();
-                candidateMaster.CandidateId = users[0].CandidateId + 1;
-                candidateMaster.InsertBy = "";
-                db.CandidateMasters.Add(candidateMaster);
+                db.RoleMasters.Add(roleMaster);
                 db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
-                TempData["Message"] = "Details Saved!";
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = "Server side Error, Please contact to admin!" + ex.Message;
-            }
-            return RedirectToAction("Index", "CandidateManage", new { @area = "MarketingManager" });
+            return View(roleMaster);
         }
 
-        // GET: MarketingManager/CandidateManage/Edit/5
+        // GET: admin/RoleManage/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CandidateMaster candidateMaster = db.CandidateMasters.Find(id);
-            if (candidateMaster == null)
+            RoleMaster roleMaster = db.RoleMasters.Find(id);
+            if (roleMaster == null)
             {
                 return HttpNotFound();
             }
-            return View(candidateMaster);
+            return View(roleMaster);
         }
 
-        // POST: MarketingManager/CandidateManage/Edit/5
+        // POST: admin/RoleManage/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CandidateId,CandidateName,CandidateEmailId,MarketingEmailId,ContactNumber,MarketingNumver,InsertBy,Technology")] CandidateMaster candidateMaster)
+        public ActionResult Edit([Bind(Include = "RoleId,RoleTitle,IsEnabled")] RoleMaster roleMaster)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(candidateMaster).State = EntityState.Modified;
+                db.Entry(roleMaster).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(candidateMaster);
+            return View(roleMaster);
         }
 
-        // GET: MarketingManager/CandidateManage/Delete/5
+        // GET: admin/RoleManage/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CandidateMaster candidateMaster = db.CandidateMasters.Find(id);
-            if (candidateMaster == null)
+            RoleMaster roleMaster = db.RoleMasters.Find(id);
+            if (roleMaster == null)
             {
                 return HttpNotFound();
             }
-            return View(candidateMaster);
+            return View(roleMaster);
         }
 
-        // POST: MarketingManager/CandidateManage/Delete/5
+        // POST: admin/RoleManage/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CandidateMaster candidateMaster = db.CandidateMasters.Find(id);
-            db.CandidateMasters.Remove(candidateMaster);
+            RoleMaster roleMaster = db.RoleMasters.Find(id);
+            db.RoleMasters.Remove(roleMaster);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
