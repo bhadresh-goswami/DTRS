@@ -49,9 +49,25 @@ namespace DTRS.Areas.MarketingManager.Controllers
             return View(submissionModels);
         }
 
-        public ActionResult SubmissionRecWise(string _recname)
+        public ActionResult SubmissionRecWise(string _recname, DateTime? sdate, DateTime? edate)
         {
-            return View();
+            List<SubmissionMaster> list = new List<SubmissionMaster>();
+            var original = db.SubmissionMasters.Where(a => a.SBy == _recname).ToList();
+            if (sdate != null && edate != null)
+            {
+                foreach (var item in original)
+                {
+                    if (item.SDate >= sdate && item.SDate <= edate)
+                    {
+                        list.Add(item);
+                    }
+                }
+            }
+            else
+            {
+                list = original;
+            }
+            return View(list);
         }
     }
 }
