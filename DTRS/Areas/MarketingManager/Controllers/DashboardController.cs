@@ -24,6 +24,7 @@ namespace DTRS.Areas.MarketingManager.Controllers
             {
                 foreach (var item in db.UserLoginMasters.Where(a => a.UserRole == 3))
                 {
+                    //not completed
                     var name = item.RocketUserName;
                     var totalSubmission = db.SubmissionMasters.Where(a => a.SBy == name).ToList().Count;
                     var totalInterview = db.SubmissionMasters.Where(a => a.SBy == name).ToList().Count;
@@ -46,6 +47,11 @@ namespace DTRS.Areas.MarketingManager.Controllers
             }
             ViewBag.Name = "Akash Shah";
             return View(submissionModels);
+        }
+
+        public ActionResult SubmissionRecWise(string _recname)
+        {
+            return View();
         }
     }
 }

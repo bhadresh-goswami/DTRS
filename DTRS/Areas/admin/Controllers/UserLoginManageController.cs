@@ -8,115 +8,114 @@ using System.Web;
 using System.Web.Mvc;
 using DTRS.Models;
 
-namespace DTRS.Areas.MarketingManager.Controllers
+namespace DTRS.Areas.admin.Controllers
 {
-    public class CandidateManageController : Controller
+    public class UserLoginManageController : Controller
     {
         private dbReportingSystemEntities db = new dbReportingSystemEntities();
 
-        // GET: MarketingManager/CandidateManage
+        // GET: admin/UserLoginManage
         public ActionResult Index()
         {
-            return View(db.CandidateMasters.ToList());
+            var userLoginMasters = db.UserLoginMasters.Include(u => u.RoleMaster);
+            return View(userLoginMasters.ToList());
         }
 
-        // GET: MarketingManager/CandidateManage/Details/5
+        // GET: admin/UserLoginManage/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CandidateMaster candidateMaster = db.CandidateMasters.Find(id);
-            if (candidateMaster == null)
+            UserLoginMaster userLoginMaster = db.UserLoginMasters.Find(id);
+            if (userLoginMaster == null)
             {
                 return HttpNotFound();
             }
-            return View(candidateMaster);
+            return View(userLoginMaster);
         }
 
-        // GET: MarketingManager/CandidateManage/Create
+        // GET: admin/UserLoginManage/Create
         public ActionResult Create()
         {
+            ViewBag.UserRole = new SelectList(db.RoleMasters, "RoleId", "RoleTitle");
             return View();
         }
 
-        // POST: MarketingManager/CandidateManage/Create
+        // POST: admin/UserLoginManage/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create([Bind(Include = "CandidateId,CandidateName,VisaStatus,CandidateEmailId,MarketingEmailId,ContactNumber,MarketingNumver,InsertBy,Technology")] CandidateMaster candidateMaster)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "LoginId,RocketUserName,EmailId,Password,IsEnabled,IsLogin,UserRole")] UserLoginMaster userLoginMaster)
         {
-            try
+            if (ModelState.IsValid)
             {
-                var users = db.CandidateMasters.OrderByDescending(a => a.CandidateId).ToList();
-                candidateMaster.CandidateId = users[0].CandidateId + 1;
-                candidateMaster.InsertBy = "";
-                db.CandidateMasters.Add(candidateMaster);
+                db.UserLoginMasters.Add(userLoginMaster);
                 db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
-                TempData["Message"] = "Details Saved!";
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = "Server side Error, Please contact to admin!" + ex.Message;
-            }
-            return RedirectToAction("Index", "CandidateManage", new { @area = "MarketingManager" });
+            ViewBag.UserRole = new SelectList(db.RoleMasters, "RoleId", "RoleTitle", userLoginMaster.UserRole);
+            return View(userLoginMaster);
         }
 
-        // GET: MarketingManager/CandidateManage/Edit/5
+        // GET: admin/UserLoginManage/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CandidateMaster candidateMaster = db.CandidateMasters.Find(id);
-            if (candidateMaster == null)
+            UserLoginMaster userLoginMaster = db.UserLoginMasters.Find(id);
+            if (userLoginMaster == null)
             {
                 return HttpNotFound();
             }
-            return View(candidateMaster);
+            ViewBag.UserRole = new SelectList(db.RoleMasters, "RoleId", "RoleTitle", userLoginMaster.UserRole);
+            return View(userLoginMaster);
         }
 
-        // POST: MarketingManager/CandidateManage/Edit/5
+        // POST: admin/UserLoginManage/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CandidateId,CandidateName,CandidateEmailId,MarketingEmailId,ContactNumber,MarketingNumver,InsertBy,Technology")] CandidateMaster candidateMaster)
+        public ActionResult Edit([Bind(Include = "LoginId,RocketUserName,EmailId,Password,IsEnabled,IsLogin,UserRole")] UserLoginMaster userLoginMaster)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(candidateMaster).State = EntityState.Modified;
+                db.Entry(userLoginMaster).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(candidateMaster);
+            ViewBag.UserRole = new SelectList(db.RoleMasters, "RoleId", "RoleTitle", userLoginMaster.UserRole);
+            return View(userLoginMaster);
         }
 
-        // GET: MarketingManager/CandidateManage/Delete/5
+        // GET: admin/UserLoginManage/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CandidateMaster candidateMaster = db.CandidateMasters.Find(id);
-            if (candidateMaster == null)
+            UserLoginMaster userLoginMaster = db.UserLoginMasters.Find(id);
+            if (userLoginMaster == null)
             {
                 return HttpNotFound();
             }
-            return View(candidateMaster);
+            return View(userLoginMaster);
         }
 
-        // POST: MarketingManager/CandidateManage/Delete/5
+        // POST: admin/UserLoginManage/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CandidateMaster candidateMaster = db.CandidateMasters.Find(id);
-            db.CandidateMasters.Remove(candidateMaster);
+            UserLoginMaster userLoginMaster = db.UserLoginMasters.Find(id);
+            db.UserLoginMasters.Remove(userLoginMaster);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
