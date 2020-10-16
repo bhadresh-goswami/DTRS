@@ -1,0 +1,171 @@
+﻿@model IEnumerable<DTRS.Models.SubmissionMaster>
+
+@{
+    ViewBag.Title = "SubmissionRecWise";
+    Layout = "~/Views/Shared/_mainDesignLayout.cshtml";
+}
+<div class="col-md-12 col-sm-12  ">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Submissions <small>Recruiter Wise</small></h2>
+            <ul class="nav navbar-right panel_toolbox">
+                @*<li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>*@
+                <li class="dropdown">
+                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addCandidate" role="button" aria-expanded="false">
+                        <i class="glyphicon glyphicon-plus"></i> Add Candidates
+                    </button>
+                    @*<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Settings 1</a>
+                            <a class="dropdown-item" href="#">Settings 2</a>
+                        </div>*@
+                </li>
+                @*<li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>*@
+            </ul>
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            @Html.Partial("_alertShow")
+
+            <p> <code></code> Overview of Submissions</p>
+            <form>
+                <input type="hidden" name="_recname" value="@Request.QueryString["_recname"].ToString()" />
+                <table class="table-bordered">
+                    
+                    <tr>
+                        <td>Start Date:</td>
+                        <td>
+                            <input type="date" name="sdate" class="form-control" required />
+                        </td>
+                        <td>End Date:</td>
+                        <td>
+                            <input type="date" name="edate" class="form-control" required />
+                        </td>
+                        <td>
+                            <button class="btn btn-toolbar"><i class="glyphicon glyphicon-search"></i></button>
+                        </td>
+                    </tr>
+                   
+                </table>
+                
+            </form>
+            <div class="table-responsive">
+                <table class="table table-striped jambo_table bulk_action">
+
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SDate)
+                            </th>
+
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.CandidateName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Technology)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Rate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ClientName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.VendorName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ContactEmailId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.VendorCompanyName)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SDate)
+                            </th>
+
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.CandidateName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Technology)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Rate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ClientName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.VendorName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ContactEmailId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.VendorCompanyName)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SDate)
+                                </td>
+
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CandidateName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Technology)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Rate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClientName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VendorName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ContactEmailId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VendorCompanyName)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.SId }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.SId }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.SId })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<table class="table"></table>
