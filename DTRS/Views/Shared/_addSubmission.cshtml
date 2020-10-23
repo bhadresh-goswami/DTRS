@@ -52,9 +52,26 @@
                                         <div class="col-md-6 col-sm-6 ">
                                             <select name="CandidateName" class="form-control">
                                                 <option>Select Candidate Name</option>
-                                                @foreach (var item in db.CandidateMasters)
+                                                @{
+                                                    string name = Session["name"].ToString();
+                                                }
+                                                @foreach (var item in db.CandidateMasters.Where(a => a.AssignTo == name))
                                                 {
                                                     <option value="@item.CandidateName">@item.CandidateName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">
+                                            Candidate Name <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <select name="JobPortalName" class="form-control">
+                                                <option>Select Job Portal</option>
+                                                @foreach (var item in db.JobPortalMasters.ToList())
+                                                {
+                                                    <option value="@item.JobPortalTitle">@item.JobPortalTitle</option>
                                                 }
                                             </select>
                                         </div>
@@ -72,17 +89,18 @@
                                                 }
                                             </select>
                                         </div>
-                                    </div><div class="item form-group">
-                                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
-                                            Location <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 ">
-                                            <select name="Location" class="form-control">
-                                                <option value="Visnagar">Visnager</option>
-                                                <option value="Ahmedabad">Ahmedabad</option>
-                                            </select>
-                                        </div>
                                     </div>
+                                    @*<div class="item form-group">
+            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                Location <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 ">
+                <select name="Location" class="form-control">
+                    <option value="Visnagar">Visnager</option>
+                    <option value="Ahmedabad">Ahmedabad</option>
+                </select>
+            </div>
+        </div>*@
                                     <div class="item form-group">
                                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
                                             Job Rate $ <span class="required">*</span>
@@ -124,38 +142,38 @@
                                         </div>
                                     </div>
                                     @*<div class="item form-group">
-                                            <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Middle Name / Initial</label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <input id="middle-name" class="form-control" type="text" name="middle-name">
-                                            </div>
-                                        </div>*@
+            <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Middle Name / Initial</label>
+            <div class="col-md-6 col-sm-6 ">
+                <input id="middle-name" class="form-control" type="text" name="middle-name">
+            </div>
+        </div>*@
                                     @*<div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">Gender</label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <div id="gender" class="btn-group" data-toggle="buttons">
-                                                    <label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                                        <input type="radio" name="gender" value="male" class="join-btn"> &nbsp; Male &nbsp;
-                                                    </label>
-                                                    <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                                        <input type="radio" name="gender" value="female" class="join-btn"> Female
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>*@
+            <label class="col-form-label col-md-3 col-sm-3 label-align">Gender</label>
+            <div class="col-md-6 col-sm-6 ">
+                <div id="gender" class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                        <input type="radio" name="gender" value="male" class="join-btn"> &nbsp; Male &nbsp;
+                    </label>
+                    <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                        <input type="radio" name="gender" value="female" class="join-btn"> Female
+                    </label>
+                </div>
+            </div>
+        </div>*@
                                     @*<div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">
-                                                Date Of Birth <span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <input id="birthday" class="date-picker form-control" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
-                                                <script>
-                                                    function timeFunctionLong(input) {
-                                                        setTimeout(function () {
-                                                            input.type = 'text';
-                                                        }, 60000);
-                                                    }</script>
-                                            </div>
-                                        </div>*@
+            <label class="col-form-label col-md-3 col-sm-3 label-align">
+                Date Of Birth <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 ">
+                <input id="birthday" class="date-picker form-control" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+                <script>
+                    function timeFunctionLong(input) {
+                        setTimeout(function () {
+                            input.type = 'text';
+                        }, 60000);
+                    }</script>
+            </div>
+        </div>*@
                                     <div class="ln_solid"></div>
                                     <div class="item form-group">
                                         <div class="col-md-6 col-sm-6 offset-md-3">

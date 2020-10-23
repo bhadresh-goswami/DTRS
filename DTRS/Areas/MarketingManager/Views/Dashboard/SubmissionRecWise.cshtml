@@ -4,168 +4,194 @@
     ViewBag.Title = "SubmissionRecWise";
     Layout = "~/Views/Shared/_mainDesignLayout.cshtml";
 }
-<div class="col-md-12 col-sm-12  ">
+
+
+
+<link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+
+<link href="~/Content/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="~/Content/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<!-- NProgress -->
+<link href="~/Content/vendors/nprogress/nprogress.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="~/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- Datatables -->
+
+<link href="~/Content/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+<!-- Custom Theme Style -->
+<link href="~/Content/build/css/custom.min.css" rel="stylesheet">
+
+<div class="col-md-12 col-sm-12 ">
+    @Html.Partial("_alertShow")
+
     <div class="x_panel">
         <div class="x_title">
-            <h2>Submissions <small>Recruiter Wise</small></h2>
+            <h2>Submissions <small>@ViewBag.Name</small></h2>
             <ul class="nav navbar-right panel_toolbox">
-                @*<li>
-                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>*@
-                <li class="dropdown">
-                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addCandidate" role="button" aria-expanded="false">
-                        <i class="glyphicon glyphicon-plus"></i> Add Candidates
+                <li>
+                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addSubmission" role="button" aria-expanded="false">
+                        <i class="glyphicon glyphicon-plus"></i> Add Submission
                     </button>
-                    @*<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Settings 1</a>
-                            <a class="dropdown-item" href="#">Settings 2</a>
-                        </div>*@
                 </li>
-                @*<li>
-                        <a class="close-link"><i class="fa fa-close"></i></a>
+                @*<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#"><i class="glyphicon glyphicon-plus"></i> Add New</a>
+                            <a class="dropdown-item" href="#">Settings 2</a>
+                        </div>
                     </li>*@
+                <li>
+                    <a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
             </ul>
-
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
-            @Html.Partial("_alertShow")
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card-box table-responsive">
+                        @*@Html.Partial("_alertShow")*@
 
-            <p> <code></code> Overview of Submissions</p>
-            <form>
-                <input type="hidden" name="_recname" value="@Request.QueryString["_recname"].ToString()" />
-                <table class="table-bordered">
-                    
-                    <tr>
-                        <td>Start Date:</td>
-                        <td>
-                            <input type="date" name="sdate" class="form-control" required />
-                        </td>
-                        <td>End Date:</td>
-                        <td>
-                            <input type="date" name="edate" class="form-control" required />
-                        </td>
-                        <td>
-                            <button class="btn btn-toolbar"><i class="glyphicon glyphicon-search"></i></button>
-                        </td>
-                    </tr>
-                   
-                </table>
-                
-            </form>
-            <div class="table-responsive">
-                <table class="table table-striped jambo_table bulk_action">
+                        <p> <code></code> Overview of Submissions</p>
+                        <form>
+                            <input type="hidden" name="_recname" value="@Request.QueryString["_recname"].ToString()" />
+                            <table class="table-bordered">
 
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.SDate)
-                            </th>
+                                <tr>
+                                    <td>Start Date:</td>
+                                    <td>
+                                        <input type="date" name="sdate" class="form-control" required />
+                                    </td>
+                                    <td>End Date:</td>
+                                    <td>
+                                        <input type="date" name="edate" class="form-control" required />
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-toolbar"><i class="glyphicon glyphicon-search"></i></button>
+                                    </td>
+                                </tr>
 
+                            </table>
 
-                            <th>
-                                @Html.DisplayNameFor(model => model.CandidateName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Technology)
-                            </th>
+                        </form>
+                        <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Date
+                                    </th>
+                                    @*<th>
+                                            Time
+                                        </th>*@
+                                    <th>
+                                        Candidate Name
+                                    </th>
+                                    <th>
+                                        Job Title
+                                    </th>
+                                    <th>
+                                        Location
+                                    </th>
+                                    <th>
+                                        Rate
+                                    </th>
+                                    <th>
+                                        Client Name
+                                    </th>
+                                    <th>
+                                        Vendor Name
+                                    </th>
+                                    <th>
+                                        Vendor Email Id
+                                    </th>
+                                    <th>
+                                        Vendor Company Name
+                                    </th>
+                                </tr>
+                            </thead>
 
-                            <th>
-                                @Html.DisplayNameFor(model => model.Rate)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.ClientName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.VendorName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.ContactEmailId)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.VendorCompanyName)
-                            </th>
-                            <th></th>
-                        </tr>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
 
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.SDate)
-                            </th>
+                                    string dt = item.SDate.ToShortDateString();
+                                    string tm = new DateTime(item.STime.Ticks).ToShortTimeString();
 
+                                    <tr>
+                                        <td>
+                                            @dt
+                                        </td>
+                                        @*<td>
+                                                @tm
+                                            </td>*@
 
-                            <th>
-                                @Html.DisplayNameFor(model => model.CandidateName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Technology)
-                            </th>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CandidateName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Technology)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Location)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Rate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ClientName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.VendorName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ContactEmailId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.VendorCompanyName)
+                                        </td>
 
-                            <th>
-                                @Html.DisplayNameFor(model => model.Rate)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.ClientName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.VendorName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.ContactEmailId)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.VendorCompanyName)
-                            </th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.SDate)
-                                </td>
+                                    </tr>
+                                }
 
-
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CandidateName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Technology)
-                                </td>
-
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Rate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ClientName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.VendorName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ContactEmailId)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.VendorCompanyName)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.SId }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.SId }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.SId })
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-
-                </table>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-
-
         </div>
     </div>
 </div>
-<table class="table"></table>
+
+
+<!-- jQuery -->
+<!-- Bootstrap -->
+<!-- FastClick -->
+<script src="~/Content/vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="~/Content/vendors/nprogress/nprogress.js"></script>
+<!-- iCheck -->
+<script src="~/Content/vendors/iCheck/icheck.min.js"></script>
+<!-- Datatables -->
+<script src="~/Content/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/Content/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="~/Content/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="~/Content/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="~/Content/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="~/Content/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="~/Content/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="~/Content/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+<script src="~/Content/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="~/Content/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/Content/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="~/Content/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+<script src="~/Content/vendors/jszip/dist/jszip.min.js"></script>
+<script src="~/Content/vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="~/Content/vendors/pdfmake/build/vfs_fonts.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="~/Content/build/js/custom.min.js"></script>
+

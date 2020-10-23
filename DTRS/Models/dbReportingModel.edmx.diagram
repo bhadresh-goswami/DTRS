@@ -6,14 +6,15 @@
     <edmx:Diagrams>
       <Diagram DiagramId="c21229b167f74a9ca711c80030aae2b6" Name="Diagram1">
         <EntityTypeShape EntityType="dbReportingSystemModel.CandidateMaster" Width="1.5" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="dbReportingSystemModel.InterviewMaster" Width="1.5" PointX="3" PointY="5.5" />
-        <EntityTypeShape EntityType="dbReportingSystemModel.JobPortalMaster" Width="1.5" PointX="5.75" PointY="4.75" />
-        <EntityTypeShape EntityType="dbReportingSystemModel.RoleMaster" Width="1.5" PointX="0.75" PointY="1.375" />
-        <EntityTypeShape EntityType="dbReportingSystemModel.SubmissionMaster" Width="1.5" PointX="0.75" PointY="5" />
-        <EntityTypeShape EntityType="dbReportingSystemModel.TechnologyMaster" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="dbReportingSystemModel.UserLoginMaster" Width="1.5" PointX="3" PointY="1" />
-        <AssociationConnector Association="dbReportingSystemModel.FK__Interview__RefSI__619B8048" />
+        <EntityTypeShape EntityType="dbReportingSystemModel.InterviewMaster" Width="1.5" PointX="3" PointY="5.375" />
+        <EntityTypeShape EntityType="dbReportingSystemModel.RoleMaster" Width="1.5" PointX="0.75" PointY="1.5" />
+        <EntityTypeShape EntityType="dbReportingSystemModel.TeamMaster" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="dbReportingSystemModel.TechnologyMaster" Width="1.5" PointX="7.75" PointY="3.75" />
+        <EntityTypeShape EntityType="dbReportingSystemModel.UserLoginMaster" Width="1.5" PointX="3" PointY="0.875" />
         <AssociationConnector Association="dbReportingSystemModel.FK__UserLogin__UserR__37A5467C" />
+        <EntityTypeShape EntityType="dbReportingSystemModel.JobPortalMaster" Width="1.5" PointX="5.375" PointY="6.75" />
+        <EntityTypeShape EntityType="dbReportingSystemModel.SubmissionMaster" Width="1.5" PointX="0.75" PointY="4.875" />
+        <AssociationConnector Association="dbReportingSystemModel.FK__Interview__RefSI__160F4887" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,0 +1,293 @@
+﻿@model Dictionary<string, object>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_mainDesignLayout.cshtml";
+}
+<div class="col-md-12 col-sm-12 ">
+    @Html.Partial("_alertShow")
+    <form method="get" action="@Url.Action("Index","ViewReports",new { @area = "Reports"})" id="sform">
+        <table class="table table-responsive">
+            <tr>
+                <td>Selecte Date for Report</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="date" name="date" id="date" class="form-control" onchange="submitForm()" />
+                </td>
+            </tr>
+        </table>
+        <script>
+            function submitForm(){
+                document.getElementById("sform").submit();
+            }
+
+        </script>
+    </form>
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>User Roles <small></small></h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a href="@Url.Action("Create","UserLoginManage",new { @area = "admin" })" class="btn btn-sm btn-secondary" style="color:white"><i class="glyphicon glyphicon-plus"></i> Add New</a>
+                </li>
+                @*<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#"><i class="glyphicon glyphicon-plus"></i> Add New</a>
+                            <a class="dropdown-item" href="#">Settings 2</a>
+                        </div>
+                    </li>*@
+                <li>
+                    <a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card-box table-responsive">
+                        <p class="text-muted font-13 m-b-30">
+                            Manager Wise Report
+                        </p>
+                        <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Recruiter
+                                    </th>
+                                    <th>
+                                        Submission
+                                    </th>
+                                    <th>
+                                        Interview
+                                    </th>
+                                    <th>
+                                        PO
+                                    </th>
+                                    <th>
+                                        Candidate
+                                    </th>
+                                    <th>
+                                        Location
+                                    </th>
+                                    <th>
+                                        Manager Name
+                                    </th>
+                                    @*<th></th>*@
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @{
+                                    var data = (List<DTRS.Models.ReportModel.ManagerReportModel>)Model["MG"];
+                                }
+                                @foreach (var item in data)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.totalRecruiter)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.totalSubmission)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.totalInterview)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.totalPO)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.totalCandidate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Location)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ManagerName)
+                                        </td>
+                                        @*<td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                        </td>*@
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card-box table-responsive">
+                        <p class="text-muted font-13 m-b-30">
+                            Team Lead Wise Report
+                        </p>
+                        <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Recruiter
+                                    </th>
+                                    <th>
+                                        Submission
+                                    </th>
+                                    <th>
+                                        Interview
+                                    </th>
+                                    <th>
+                                        PO
+                                    </th>
+                                    <th>
+                                        Candidate
+                                    </th>
+                                    <th>
+                                        Location
+                                    </th>
+                                    <th>
+                                        Team Lead Name
+                                    </th>
+                                    <th>
+                                        Manager Name
+                                    </th>
+                                    @*<th></th>*@
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @{
+                                    var TLdata = (List<DTRS.Models.ReportModel.TeamLeadReportModel>)Model["TL"];
+                                }
+                                @foreach (var item in TLdata)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.totalRecruiter)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.totalSubmission)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.totalInterview)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.totalPO)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.totalCandidate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Location)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TLName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ManagerName)
+                                        </td>
+                                        @*<td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                        </td>*@
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card-box table-responsive">
+                        <p class="text-muted font-13 m-b-30">
+                            Recruiter Wise Report
+                        </p>
+                        <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Recruiter
+                                    </th>
+                                    <th>
+                                        Submission
+                                    </th>
+                                    <th>
+                                        Interview
+                                    </th>
+                                    <th>
+                                        PO
+                                    </th>
+                                    <th>
+                                        Candidate
+                                    </th>
+                                    <th>
+                                        Location
+                                    </th>
+                                    <th>
+                                        Recruiter Name
+                                    </th>
+                                    <th>
+                                        Team Lead Name
+                                    </th>
+                                    <th>
+                                        Manager Name
+                                    </th>
+                                    @*<th></th>*@
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @{
+                                    var Recdata = (List<DTRS.Models.ReportModel.RecruiterReportModel>)Model["REC"];
+                                }
+                                @foreach (var item in Recdata)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.totalRecruiter)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.totalSubmission)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.totalInterview)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.totalPO)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.totalCandidate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Location)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.RecruiterName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TLName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ManagerName)
+                                        </td>
+                                        @*<td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                        </td>*@
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

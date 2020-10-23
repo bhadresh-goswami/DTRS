@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using DTRS.Models;
+using System.Web.Security;
 
 namespace DTRS.Controllers
 {
@@ -35,15 +36,62 @@ namespace DTRS.Controllers
                 }
                 Session["type"] = user.RoleMaster.RoleTitle;
                 Session["userId"] = user.LoginId;
+                Session["name"] = user.RocketUserName;
 
-                switch (user.UserRole)
+                //switch (user.UserRole)
+                //{
+                //    //admin
+                //    case 1:
+                //        return RedirectToAction("Index", "Dashboard", new { @area = "admin" });
+                //    default:
+                //        break;
+                //}
+                var type = Session["type"].ToString();
+                string url = "";
+                switch (type)
                 {
-                    //admin
-                    case 1:
-                        return RedirectToAction("Index", "Dashboard", new { @area = "admin" });
+
+                    case "Admin":
+                        url = Url.Action("Index", "Dashboard", new { @area = "admin" });
+                        break;
+                    case "Recruiter":
+                        url = Url.Action("Index", "Dashboard", new { @area = "Recruiter" });
+                        break;
+
+                    case "Marketing Manager":
+                        url = Url.Action("Index", "Dashboard", new { @area = "MarketingManager" });
+                        break;
+                    case "Technical Expert":
+                        url = Url.Action("Index", "Dashboard", new { @area = "TechnicalExpert" });
+                        break;
+                    case "Marketing Team Lead":
+                        url = Url.Action("Index", "Dashboard", new { @area = "TechnicalLead" });
+                        break;
+
+                    case "Technical Expert Lead":
+                        url = Url.Action("Index", "Dashboard", new { @area = "TechnicalLead" });
+                        break;
+                    case "Master Admin":
+                        url = Url.Action("Index", "Dashboard", new { @area = "admin" });
+                        break;
+
                     default:
                         break;
                 }
+                var authTicket = new FormsAuthenticationTicket(
+      1,
+      user.LoginId.ToString(),  //user id
+      DateTime.Now,
+      DateTime.Now.AddMinutes(20),  // expiry
+      true,  //true to remember
+      "", //roles 
+      "/"
+    );
+
+                //encrypt the ticket and add it to a cookie
+                HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
+                Response.Cookies.Add(cookie);
+                return Redirect(url);
             }
             catch (Exception ex)
             {
@@ -59,6 +107,16 @@ namespace DTRS.Controllers
         public ActionResult RecoverPassword(string EmailId)
         {
             return View();
+        }
+
+        public ActionResult NotUser()
+        {
+            return View();
+        }
+        public ActionResult LogOut()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index");
         }
     }
 }

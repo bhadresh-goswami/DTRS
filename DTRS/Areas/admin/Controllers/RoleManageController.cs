@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DTRS.Models;
+using static DTRS.FilterConfig;
 
 namespace DTRS.Areas.admin.Controllers
 {
+    [_AuthenticationFilter]
     public class RoleManageController : Controller
     {
         private dbReportingSystemEntities db = new dbReportingSystemEntities();
@@ -45,17 +47,25 @@ namespace DTRS.Areas.admin.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "RoleId,RoleTitle,IsEnabled")] RoleMaster roleMaster)
         {
-            if (ModelState.IsValid)
+            try
             {
+                //int id = db.RoleMasters.Last().RoleId + 1;
+                var role = db.RoleMasters.OrderByDescending(a=>a.RoleId).ToList();
+                roleMaster.RoleId = role[0].RoleId + 1;
                 db.RoleMasters.Add(roleMaster);
                 db.SaveChanges();
+                TempData["Message"] = "Role Title Saved!";
                 return RedirectToAction("Index");
-            }
 
-            return View(roleMaster);
+            }
+            catch (Exception ex)
+            {
+
+                TempData["Error"] = ex.Message;
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: admin/RoleManage/Edit/5

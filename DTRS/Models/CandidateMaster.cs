@@ -23,5 +23,6 @@ namespace DTRS.Models
         public string InsertBy { get; set; }
         public string Technology { get; set; }
         public string AssignTo { get; set; }
+        public string VisaStatus { get; set; }
     }
 }

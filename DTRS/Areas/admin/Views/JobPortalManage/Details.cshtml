@@ -1,0 +1,27 @@
+﻿@model DTRS.Models.JobPortalMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_mainDesignLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>JobPortalMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.JobPortalTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JobPortalTitle)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.JPId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -7,9 +7,11 @@ using System.Web.Mvc;
 
 using DTRS.Models;
 using DTRS.Models.Submission;
+using static DTRS.FilterConfig;
 
 namespace DTRS.Areas.Recruiter.Controllers
 {
+    [_AuthenticationFilter]
     public class DashboardController : MasterCodeController
     {
         public DashboardController()
@@ -33,10 +35,42 @@ namespace DTRS.Areas.Recruiter.Controllers
         {
             try
             {
+                int id = int.Parse(Session["userId"].ToString());
+                var user = db.UserLoginMasters.Find(id);
                 model.SDate = DateTime.Now.Date;
                 model.STime = DateTime.Now.TimeOfDay;
-                model.SBy = "bhadresh.gosai";
+                model.SBy = Session["name"].ToString();
+                model.Location = user.Location;
                 db.SubmissionMasters.Add(model);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                TempData["Error"] = ex.Message;
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Edit(SubmissionMaster model)
+        {
+            try
+            {
+                var data = db.SubmissionMasters.Find(model.SId);
+
+                //model.SDate = data.SDate;
+                //model.STime = data.STime;
+                //model.SBy = Session["name"].ToString();
+                //data = model;
+                //db.SubmissionMasters.Add(model);
+                //db.Entry(model).State = System.Data.Entity.EntityState.Modified;
+                data.ClientName = model.ClientName;
+                data.ContactEmailId = model.ContactEmailId;
+                data.Rate = model.Rate;
+                data.VendorCompanyName = model.VendorCompanyName;
+                data.VendorName = model.VendorName;
+                
                 db.SaveChanges();
             }
             catch (Exception ex)

@@ -27,10 +27,11 @@ namespace DTRS.Models
     
         public virtual DbSet<CandidateMaster> CandidateMasters { get; set; }
         public virtual DbSet<InterviewMaster> InterviewMasters { get; set; }
-        public virtual DbSet<JobPortalMaster> JobPortalMasters { get; set; }
         public virtual DbSet<RoleMaster> RoleMasters { get; set; }
-        public virtual DbSet<SubmissionMaster> SubmissionMasters { get; set; }
+        public virtual DbSet<TeamMaster> TeamMasters { get; set; }
         public virtual DbSet<TechnologyMaster> TechnologyMasters { get; set; }
         public virtual DbSet<UserLoginMaster> UserLoginMasters { get; set; }
+        public virtual DbSet<JobPortalMaster> JobPortalMasters { get; set; }
+        public virtual DbSet<SubmissionMaster> SubmissionMasters { get; set; }
     }
 }

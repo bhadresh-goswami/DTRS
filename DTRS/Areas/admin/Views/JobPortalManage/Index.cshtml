@@ -1,0 +1,123 @@
+﻿@model IEnumerable<DTRS.Models.JobPortalMaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_mainDesignLayout.cshtml";
+}
+
+
+
+<link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+
+<link href="~/Content/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="~/Content/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<!-- NProgress -->
+<link href="~/Content/vendors/nprogress/nprogress.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="~/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- Datatables -->
+
+<link href="~/Content/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+<!-- Custom Theme Style -->
+<link href="~/Content/build/css/custom.min.css" rel="stylesheet">
+
+<div class="col-md-12 col-sm-12 ">
+    @Html.Partial("_alertShow")
+
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Submissions <small>@ViewBag.Name</small></h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="btn btn-sm btn-primary" role="button" aria-expanded="false" href="@Url.Action("Create","JobPortalManage",new { @area = "admin"})">
+                        <i class="glyphicon glyphicon-plus"></i> Add Job Portal
+                    </a>
+                </li>
+                @*<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#"><i class="glyphicon glyphicon-plus"></i> Add New</a>
+                            <a class="dropdown-item" href="#">Settings 2</a>
+                        </div>
+                    </li>*@
+                <li>
+                    <a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card-box table-responsive">
+                        <p class="text-muted font-13 m-b-30">
+
+                        </p>
+                        <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.JobPortalTitle)
+                                    </th>
+                                    <th></th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.JobPortalTitle)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.JPId }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.JPId }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.JPId })
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- jQuery -->
+<!-- Bootstrap -->
+<!-- FastClick -->
+<script src="~/Content/vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="~/Content/vendors/nprogress/nprogress.js"></script>
+<!-- iCheck -->
+<script src="~/Content/vendors/iCheck/icheck.min.js"></script>
+<!-- Datatables -->
+<script src="~/Content/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/Content/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="~/Content/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="~/Content/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="~/Content/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="~/Content/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="~/Content/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="~/Content/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+<script src="~/Content/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="~/Content/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/Content/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="~/Content/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+<script src="~/Content/vendors/jszip/dist/jszip.min.js"></script>
+<script src="~/Content/vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="~/Content/vendors/pdfmake/build/vfs_fonts.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="~/Content/build/js/custom.min.js"></script>
