@@ -32,6 +32,7 @@ namespace DTRS.Models
         public string VendorName { get; set; }
         public string ContactEmailId { get; set; }
         public string VendorCompanyName { get; set; }
+        public string JobPortalName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InterviewMaster> InterviewMasters { get; set; }

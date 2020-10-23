@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Data;
 
 using DTRS.Models;
+using static DTRS.FilterConfig;
 
 namespace DTRS.Controllers
 {

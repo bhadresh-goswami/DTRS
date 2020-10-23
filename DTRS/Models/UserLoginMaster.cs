@@ -21,6 +21,9 @@ namespace DTRS.Models
         public bool IsEnabled { get; set; }
         public bool IsLogin { get; set; }
         public int UserRole { get; set; }
+        public string Location { get; set; }
+        public string FullName { get; set; }
+        public string ImageName { get; set; }
     
         public virtual RoleMaster RoleMaster { get; set; }
     }

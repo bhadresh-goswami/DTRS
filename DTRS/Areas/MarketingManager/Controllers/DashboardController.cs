@@ -6,9 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using static DTRS.FilterConfig;
 
 namespace DTRS.Areas.MarketingManager.Controllers
 {
+    [_AuthenticationFilter]
     public class DashboardController : MasterCodeController
     {
         public DashboardController()
@@ -51,6 +53,8 @@ namespace DTRS.Areas.MarketingManager.Controllers
 
         public ActionResult SubmissionRecWise(string _recname, DateTime? sdate, DateTime? edate)
         {
+            ViewBag.Name = "Akash Shah";
+
             List<SubmissionMaster> list = new List<SubmissionMaster>();
             var original = db.SubmissionMasters.Where(a => a.SBy == _recname).ToList();
             if (sdate != null && edate != null)

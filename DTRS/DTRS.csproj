@@ -138,7 +138,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\admin\adminAreaRegistration.cs" />
     <Compile Include="Areas\admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\admin\Controllers\JobPortalManageController.cs" />
     <Compile Include="Areas\admin\Controllers\RoleManageController.cs" />
+    <Compile Include="Areas\admin\Controllers\TeamBuildController.cs" />
+    <Compile Include="Areas\admin\Controllers\TechnologyMastersController.cs" />
     <Compile Include="Areas\admin\Controllers\UserLoginManageController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -173,7 +176,12 @@
     <Compile Include="Areas\MarketingManager\MarketingManagerAreaRegistration.cs" />
     <Compile Include="Areas\Recruiter\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Recruiter\RecruiterAreaRegistration.cs" />
+    <Compile Include="Areas\Reports\Controllers\ManagerController.cs" />
+    <Compile Include="Areas\Reports\Controllers\RecruitersController.cs" />
+    <Compile Include="Areas\Reports\Controllers\ViewReportsController.cs" />
+    <Compile Include="Areas\Reports\ReportsAreaRegistration.cs" />
     <Compile Include="Areas\TechnicalExpert\TechnicalExpertAreaRegistration.cs" />
+    <Compile Include="Areas\TechnicalLead\Controllers\DashboardController.cs" />
     <Compile Include="Areas\TechnicalLead\TechnicalLeadAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -185,6 +193,7 @@
     <Compile Include="Models\CandidateMaster.cs">
       <DependentUpon>dbReportingModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataTableModel\DataTableModel.cs" />
     <Compile Include="Models\dbReportingModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -207,6 +216,7 @@
       <DependentUpon>dbReportingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Login\LoginModel.cs" />
+    <Compile Include="Models\ReportModel\ManagerReportModel.cs" />
     <Compile Include="Models\RoleMaster.cs">
       <DependentUpon>dbReportingModel.tt</DependentUpon>
     </Compile>
@@ -214,6 +224,9 @@
       <DependentUpon>dbReportingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Submission\DashboardSubmissionModel.cs" />
+    <Compile Include="Models\TeamMaster.cs">
+      <DependentUpon>dbReportingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TechnologyMaster.cs">
       <DependentUpon>dbReportingModel.tt</DependentUpon>
     </Compile>
@@ -268,6 +281,7 @@
     <Content Include="Content\images\cropper.jpg" />
     <Content Include="Content\images\dash.png" />
     <Content Include="Content\images\dt logo.png" />
+    <Content Include="Content\images\dt logo2.png" />
     <Content Include="Content\images\favicon.ico" />
     <Content Include="Content\images\img.jpg" />
     <Content Include="Content\images\inbox.png" />
@@ -280,7 +294,7 @@
     <Content Include="Content\images\prod-3.jpg" />
     <Content Include="Content\images\prod-4.jpg" />
     <Content Include="Content\images\prod-5.jpg" />
-    <Content Include="Content\images\user.png" />
+    <Content Include="Content\images\default.png" />
     <Content Include="Content\images\visa.png" />
     <Content Include="Content\js\datepicker\daterangepicker.js" />
     <Content Include="Content\js\moment\moment.min.js" />
@@ -5103,6 +5117,24 @@
     <Content Include="Areas\admin\Views\UserLoginManage\Edit.cshtml" />
     <Content Include="Areas\admin\Views\UserLoginManage\Index.cshtml" />
     <Content Include="Areas\MarketingManager\Views\Dashboard\SubmissionRecWise.cshtml" />
+    <Content Include="Areas\admin\Views\TeamBuild\Create.cshtml" />
+    <Content Include="Areas\admin\Views\TeamBuild\Delete.cshtml" />
+    <Content Include="Areas\admin\Views\TeamBuild\Details.cshtml" />
+    <Content Include="Areas\admin\Views\TeamBuild\Edit.cshtml" />
+    <Content Include="Areas\admin\Views\TeamBuild\Index.cshtml" />
+    <Content Include="Areas\Reports\Views\web.config" />
+    <Content Include="Areas\Reports\Views\Manager\Index.cshtml" />
+    <Content Include="Areas\Reports\Views\ViewReports\Index.cshtml" />
+    <Content Include="Areas\admin\Views\JobPortalManage\Create.cshtml" />
+    <Content Include="Areas\admin\Views\JobPortalManage\Delete.cshtml" />
+    <Content Include="Areas\admin\Views\JobPortalManage\Details.cshtml" />
+    <Content Include="Areas\admin\Views\JobPortalManage\Edit.cshtml" />
+    <Content Include="Areas\admin\Views\JobPortalManage\Index.cshtml" />
+    <Content Include="Areas\admin\Views\TechnologyMasters\Create.cshtml" />
+    <Content Include="Areas\admin\Views\TechnologyMasters\Delete.cshtml" />
+    <Content Include="Areas\admin\Views\TechnologyMasters\Details.cshtml" />
+    <Content Include="Areas\admin\Views\TechnologyMasters\Edit.cshtml" />
+    <Content Include="Areas\admin\Views\TechnologyMasters\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -5130,6 +5162,10 @@
     <Content Include="Views\Shared\_addSubmission.cshtml" />
     <Content Include="Views\Shared\_topBarCount.cshtml" />
     <Content Include="Views\Shared\_topBarCountRec.cshtml" />
+    <Content Include="Views\Login\NotUser.cshtml" />
+    <Content Include="Views\Shared\_dataTableShow.cshtml" />
+    <Content Include="Views\Shared\_editSubmission.cshtml" />
+    <Content Include="Views\Shared\_menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\admin\Models\" />
@@ -5138,11 +5174,14 @@
     <Folder Include="Areas\MarketingManager\Views\Shared\" />
     <Folder Include="Areas\Recruiter\Models\" />
     <Folder Include="Areas\Recruiter\Views\Shared\" />
+    <Folder Include="Areas\Reports\Models\" />
+    <Folder Include="Areas\Reports\Views\Recruiters\" />
+    <Folder Include="Areas\Reports\Views\Shared\" />
     <Folder Include="Areas\TechnicalExpert\Controllers\" />
     <Folder Include="Areas\TechnicalExpert\Models\" />
     <Folder Include="Areas\TechnicalExpert\Views\Shared\" />
-    <Folder Include="Areas\TechnicalLead\Controllers\" />
     <Folder Include="Areas\TechnicalLead\Models\" />
+    <Folder Include="Areas\TechnicalLead\Views\Dashboard\" />
     <Folder Include="Areas\TechnicalLead\Views\Shared\" />
     <Folder Include="Views\MasterCode\" />
   </ItemGroup>

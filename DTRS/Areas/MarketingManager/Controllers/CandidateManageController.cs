@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DTRS.Models;
+using static DTRS.FilterConfig;
 
 namespace DTRS.Areas.MarketingManager.Controllers
 {
+    [_AuthenticationFilter]
     public class CandidateManageController : Controller
     {
         private dbReportingSystemEntities db = new dbReportingSystemEntities();
@@ -45,13 +47,19 @@ namespace DTRS.Areas.MarketingManager.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create([Bind(Include = "CandidateId,CandidateName,VisaStatus,CandidateEmailId,MarketingEmailId,ContactNumber,MarketingNumver,InsertBy,Technology")] CandidateMaster candidateMaster)
+        public ActionResult Create([Bind(Include = "CandidateId,CandidateName,VisaStatus,CandidateEmailId,MarketingEmailId,ContactNumber,MarketingNumver,InsertBy,Technology,AssignTo")] CandidateMaster candidateMaster)
         {
             try
             {
                 var users = db.CandidateMasters.OrderByDescending(a => a.CandidateId).ToList();
-                candidateMaster.CandidateId = users[0].CandidateId + 1;
-                candidateMaster.InsertBy = "";
+                int id = 1;
+                if (users.Count > 0)
+                {
+                    id = users[0].CandidateId + 1;
+
+                }
+                candidateMaster.CandidateId = id;
+                candidateMaster.InsertBy = Session["name"].ToString();
                 db.CandidateMasters.Add(candidateMaster);
                 db.SaveChanges();
 

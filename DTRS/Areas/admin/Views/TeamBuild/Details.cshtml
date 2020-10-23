@@ -1,0 +1,43 @@
+﻿@model DTRS.Models.TeamMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_mainDesignLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TeamMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TLName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TLName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManagerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManagerName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

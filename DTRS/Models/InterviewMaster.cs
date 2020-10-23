@@ -21,6 +21,7 @@ namespace DTRS.Models
         public int RefSId { get; set; }
         public string Status { get; set; }
         public string AssignTo { get; set; }
+        public string FeedBack { get; set; }
     
         public virtual SubmissionMaster SubmissionMaster { get; set; }
     }
