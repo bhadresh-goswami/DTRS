@@ -41,6 +41,11 @@ namespace DTRS.Areas.Recruiter.Controllers
                 model.STime = DateTime.Now.TimeOfDay;
                 model.SBy = Session["name"].ToString();
                 model.Location = user.Location;
+                model.InterviewDate = null;
+                model.InterviewFeedBack = "";
+                model.InterviewStatus = "Interview Pending";
+                model.InterviewTime = null;
+                model.AssingedTo = "";
                 db.SubmissionMasters.Add(model);
                 db.SaveChanges();
             }

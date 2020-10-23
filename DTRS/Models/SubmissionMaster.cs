@@ -33,6 +33,12 @@ namespace DTRS.Models
         public string ContactEmailId { get; set; }
         public string VendorCompanyName { get; set; }
         public string JobPortalName { get; set; }
+        public string JobDescription { get; set; }
+        public string InterviewStatus { get; set; }
+        public Nullable<System.DateTime> InterviewDate { get; set; }
+        public string AssingedTo { get; set; }
+        public Nullable<System.TimeSpan> InterviewTime { get; set; }
+        public string InterviewFeedBack { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InterviewMaster> InterviewMasters { get; set; }
