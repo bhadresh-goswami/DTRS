@@ -68,25 +68,32 @@ namespace DTRS.Areas.Recruiter.Controllers
             return View(user);
         }
         [HttpPost]
-        public ActionResult AddInterview(int? sid, SubmissionMaster model)
+        public ActionResult AddInterview(int? SId, SubmissionMaster model,string AssingedToOther)
         {
-            if(sid == null)
-            {
-                TempData["Warning"] = "Please selecte the Submission!";
-                return RedirectToAction("Index");
-            }
+           
             try
             {
-                int id = int.Parse(Session["userId"].ToString());
-                var user = db.SubmissionMasters.Find(id);
+                var submission = db.SubmissionMasters.Find(SId);
                
-                user.InterviewDate = model.InterviewDate;
-                user.InterviewFeedBack = "";
-                user.InterviewStatus = "Interview Scheduled";
-                user.InterviewTime = model.InterviewTime;
-                user.AssingedTo = model.AssingedTo;
+                submission.InterviewDate = model.InterviewDate;
+                submission.InterviewFeedBack = "";
+                submission.InterviewStatus = "Interview Scheduled";
+                submission.InterviewTime = model.InterviewTime;
+
+                var toemailidlist = "";
+                if (AssingedToOther != "")
+                {
+                    submission.AssingedTo = AssingedToOther;
+                }
+                else
+                {
+                    submission.AssingedTo = model.AssingedTo;
+                    var user = db.UserLoginMasters.SingleOrDefault(a => a.RocketUserName == AssingedToOther);
+                    toemailidlist += user.EmailId;
+                }
                 
                 db.SaveChanges();
+                TempData["Message"] = "Interview Schedule!";
             }
             catch (Exception ex)
             {

@@ -6,7 +6,6 @@
     dbReportingSystemEntities db = new dbReportingSystemEntities();
 }
 
-
 <div class="col-md-12 col-sm-12 ">
     <div class="x_panel">
         <div class="x_title">
@@ -35,15 +34,18 @@
         <div class="x_content">
             <br />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
             <form id="demo-form2" method="post" action="@Url.Action("AddInterview","Dashboard",new { @area = "recruiter"})" data-parsley-validate class="form-horizontal form-label-left">
 
+                @if (Request.QueryString["sid"] != null)
+                {
+                    <input type="hidden" value="@Request.QueryString["sid"].ToString()" id="SId" name="SId" />
+                }
                 <div class="item form-group">
                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">
                         Date <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 ">
-                        <input type="date" id="InterviewDate" name="JobDescription" required="required" class="form-control ">
+                        <input type="date" id="InterviewDate" name="InterviewDate" required="required" class="form-control ">
                     </div>
                 </div>
 
@@ -52,22 +54,37 @@
                         Time <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 ">
-                        <input type="date" id="InterviewTime" name="InterviewTime" required="required" class="form-control ">
+                        <input type="time" id="InterviewTime" name="InterviewTime" required="required" class="form-control ">
                     </div>
                 </div>
+
+
+
+
+
+
                 <div class="item form-group">
                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">
                         Job Description <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 ">
-                        <input type="text" id="JobDescription" name="JobDescription" required="required" class="form-control ">
+                        <textarea id="JobDescription" name="JobDescription"></textarea>
+
+                        @*<input type="text" id="JobDescription" name="JobDescription" required="required" class="form-control ">*@
                     </div>
                 </div>
+                <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+                <script>
+                    tinymce.init({
+                        selector: 'textarea#JobDescription',
+                        menubar: false
+                    });
+                </script>
 
 
-                
+                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
-                
 
                 <div class="item form-group">
                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">
@@ -76,12 +93,13 @@
                     <div class="col-md-6 col-sm-6 ">
                         <select class="form-control" name="AssingedTo">
                             <option>Select</option>
-                            @foreach (var item in db.UserLoginMasters.Where(a=>a.UserRole == 5))
+                            @foreach (var item in db.UserLoginMasters.Where(a => a.UserRole == 5))
                             {
                                 <option value="@item.RocketUserName">@item.FullName</option>
                             }
                         </select>
-                        <input type="text" id="AssingedToOther" name="AssingedToOther"  class="form-control ">
+                        <hr />
+                        <input type="text" placeholder="Enter Name if Not in List" id="AssingedToOther" name="AssingedToOther" class="form-control ">
                     </div>
                 </div>
                 <div class="ln_solid">
@@ -101,67 +119,67 @@
 
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     @*<div class="form-horizontal">
-        <h4>SubmissionMaster</h4>
-        <hr />
-       
-        <div class="form-group">
-            @Html.LabelFor(model => model.JobDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.JobDescription, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.JobDescription, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <h4>SubmissionMaster</h4>
+            <hr />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.InterviewStatus, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.InterviewStatus, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.InterviewStatus, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.JobDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.JobDescription, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.JobDescription, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.InterviewDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.InterviewDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.InterviewDate, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.InterviewStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.InterviewStatus, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.InterviewStatus, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AssingedTo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AssingedTo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AssingedTo, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.InterviewDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.InterviewDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.InterviewDate, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.InterviewTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.InterviewTime, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.InterviewTime, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.AssingedTo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AssingedTo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AssingedTo, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.InterviewFeedBack, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.InterviewFeedBack, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.InterviewFeedBack, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.InterviewTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.InterviewTime, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.InterviewTime, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="form-group">
+                @Html.LabelFor(model => model.InterviewFeedBack, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.InterviewFeedBack, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.InterviewFeedBack, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
-    </div>*@
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>*@
 }
 
