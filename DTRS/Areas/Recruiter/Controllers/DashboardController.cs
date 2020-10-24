@@ -21,7 +21,9 @@ namespace DTRS.Areas.Recruiter.Controllers
         // GET: Recruiter/Dashboard
         public ActionResult Index()
         {
-            return View(db.SubmissionMasters);
+            int id = int.Parse(Session["userId"].ToString());
+            var user = db.UserLoginMasters.SingleOrDefault(a => a.LoginId == id);
+            return View(db.SubmissionMasters.Where(a=>a.SBy == user.RocketUserName));
         }
 
         public ActionResult Create()
