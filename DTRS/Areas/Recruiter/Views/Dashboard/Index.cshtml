@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<DTRS.Models.SubmissionMaster>
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_mainDesignLayout.cshtml";
+                /**/
+
+                ViewBag.Title = "Index";
+                Layout = "~/Views/Shared/_mainDesignLayout.cshtml";
 }
 
 @Html.Partial("_topBarCountRec")
@@ -138,11 +140,11 @@
                                         </td>
                                         <td>
                                             @*@Html.ActionLink("Edit", "Edit", new { id = item.SId }) |
-                                            @Html.ActionLink("Details", "Details", new { id = item.SId }) |
-                                            @Html.ActionLink("Delete", "Delete", new { id = item.SId })*@
+                                                @Html.ActionLink("Details", "Details", new { id = item.SId }) |
+                                                @Html.ActionLink("Delete", "Delete", new { id = item.SId })*@
                                             <div class="btn-group">
                                                 <button class="btn btn-primary" onclick="showEditSubmission({SId:'@item.SId',SDate:'@item.SDate',STime:'@item.STime',SBy:'@item.SBy',CandidateName:'@item.CandidateName',Technology:'@item.Technology',Location:'@item.Location',Rate:'@item.Rate',ClientName:'@item.ClientName',VendorName:'@item.VendorName',ContactEmailId:'@item.ContactEmailId',VendorCompanyName:'@item.VendorCompanyName'})"><i class="glyphicon glyphicon-edit"></i> Edit</button>
-                                                <button class="btn btn-primary" onclick="scheduleInterview(@item.SId)"><i class="glyphicon glyphicon-arrow-right"></i>Schedule Interview</button>
+                                                <a href="@Url.Action("AddInterview","Dashboard",new { @area = "recruiter"})?sid=@item.SId" class="btn btn-danger" onclick="scheduleInterview(@item.SId)"><i class="glyphicon glyphicon-arrow-right"></i>Schedule Interview</a>
                                             </div>
                                         </td>
                                     </tr>
