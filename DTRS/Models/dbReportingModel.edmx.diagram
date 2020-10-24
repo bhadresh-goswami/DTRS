@@ -13,8 +13,8 @@
         <EntityTypeShape EntityType="dbReportingSystemModel.UserLoginMaster" Width="1.5" PointX="3" PointY="0.875" />
         <AssociationConnector Association="dbReportingSystemModel.FK__UserLogin__UserR__37A5467C" />
         <EntityTypeShape EntityType="dbReportingSystemModel.JobPortalMaster" Width="1.5" PointX="5.375" PointY="6.75" />
-        <EntityTypeShape EntityType="dbReportingSystemModel.SubmissionMaster" Width="1.5" PointX="0.75" PointY="4.875" />
-        <AssociationConnector Association="dbReportingSystemModel.FK__Interview__RefSI__160F4887" />
+        <EntityTypeShape EntityType="dbReportingSystemModel.SubmissionMaster" Width="1.5" PointX="0.75" PointY="4.375" />
+        <AssociationConnector Association="dbReportingSystemModel.FK__Interview__RefSI__32E0915F" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

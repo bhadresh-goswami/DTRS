@@ -5151,6 +5151,8 @@
     <Content Include="Areas\admin\Views\TechnologyMasters\Index.cshtml" />
     <Content Include="Doc\Candidate.xlsx" />
     <Content Include="Areas\Reports\Views\ExcelImport\Index.cshtml" />
+
+    <Content Include="Areas\Recruiter\Views\Dashboard\AddInterview.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -5182,6 +5184,7 @@
     <Content Include="Views\Shared\_dataTableShow.cshtml" />
     <Content Include="Views\Shared\_editSubmission.cshtml" />
     <Content Include="Views\Shared\_menu.cshtml" />
+    <Content Include="Views\Shared\_InterviewScheduled.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\admin\Models\" />
