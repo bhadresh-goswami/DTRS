@@ -65,6 +65,12 @@
           <Property Name="ContactEmailId" Type="varchar(max)" Nullable="false" />
           <Property Name="VendorCompanyName" Type="varchar(max)" Nullable="false" />
           <Property Name="JobPortalName" Type="varchar(max)" Nullable="false" />
+          <Property Name="JobDescription" Type="varchar(max)" />
+          <Property Name="InterviewStatus" Type="varchar(max)" />
+          <Property Name="InterviewDate" Type="date" />
+          <Property Name="AssingedTo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="InterviewTime" Type="time" Precision="7" />
+          <Property Name="InterviewFeedBack" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="TeamMaster">
           <Key>
@@ -97,7 +103,7 @@
           <Property Name="FullName" Type="varchar" MaxLength="100" />
           <Property Name="ImageName" Type="varchar" MaxLength="300" />
         </EntityType>
-        <Association Name="FK__Interview__RefSI__160F4887">
+        <Association Name="FK__Interview__RefSI__32E0915F">
           <End Role="SubmissionMaster" Type="Self.SubmissionMaster" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -111,7 +117,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserLogin__UserR__37A5467C">
+        <Association Name="FK__UserLogin__UserR__276EDEB3">
           <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -134,11 +140,11 @@
           <EntitySet Name="TeamMaster" EntityType="Self.TeamMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TechnologyMaster" EntityType="Self.TechnologyMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLoginMaster" EntityType="Self.UserLoginMaster" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Interview__RefSI__160F4887" Association="Self.FK__Interview__RefSI__160F4887">
+          <AssociationSet Name="FK__Interview__RefSI__32E0915F" Association="Self.FK__Interview__RefSI__32E0915F">
             <End Role="SubmissionMaster" EntitySet="SubmissionMaster" />
             <End Role="InterviewMaster" EntitySet="InterviewMaster" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserLogin__UserR__37A5467C" Association="Self.FK__UserLogin__UserR__37A5467C">
+          <AssociationSet Name="FK__UserLogin__UserR__276EDEB3" Association="Self.FK__UserLogin__UserR__276EDEB3">
             <End Role="RoleMaster" EntitySet="RoleMaster" />
             <End Role="UserLoginMaster" EntitySet="UserLoginMaster" />
           </AssociationSet>
@@ -160,7 +166,7 @@
           </AssociationSet>
           <EntitySet Name="JobPortalMasters" EntityType="dbReportingSystemModel.JobPortalMaster" />
           <EntitySet Name="SubmissionMasters" EntityType="dbReportingSystemModel.SubmissionMaster" />
-          <AssociationSet Name="FK__Interview__RefSI__160F4887" Association="dbReportingSystemModel.FK__Interview__RefSI__160F4887">
+          <AssociationSet Name="FK__Interview__RefSI__32E0915F" Association="dbReportingSystemModel.FK__Interview__RefSI__32E0915F">
             <End Role="SubmissionMaster" EntitySet="SubmissionMasters" />
             <End Role="InterviewMaster" EntitySet="InterviewMasters" />
           </AssociationSet>
@@ -192,7 +198,7 @@
           <Property Name="Status" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="AssignTo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="FeedBack" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SubmissionMaster" Relationship="dbReportingSystemModel.FK__Interview__RefSI__160F4887" FromRole="InterviewMaster" ToRole="SubmissionMaster" />
+          <NavigationProperty Name="SubmissionMaster" Relationship="dbReportingSystemModel.FK__Interview__RefSI__32E0915F" FromRole="InterviewMaster" ToRole="SubmissionMaster" />
         </EntityType>
         <EntityType Name="RoleMaster">
           <Key>
@@ -273,9 +279,15 @@
           <Property Name="ContactEmailId" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="VendorCompanyName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="JobPortalName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="InterviewMasters" Relationship="dbReportingSystemModel.FK__Interview__RefSI__160F4887" FromRole="SubmissionMaster" ToRole="InterviewMaster" />
+          <Property Name="JobDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InterviewStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InterviewDate" Type="DateTime" Precision="0" />
+          <Property Name="AssingedTo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="InterviewTime" Type="Time" Precision="7" />
+          <Property Name="InterviewFeedBack" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="InterviewMasters" Relationship="dbReportingSystemModel.FK__Interview__RefSI__32E0915F" FromRole="SubmissionMaster" ToRole="InterviewMaster" />
         </EntityType>
-        <Association Name="FK__Interview__RefSI__160F4887">
+        <Association Name="FK__Interview__RefSI__32E0915F">
           <End Type="dbReportingSystemModel.SubmissionMaster" Role="SubmissionMaster" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -379,6 +391,12 @@
           <EntitySetMapping Name="SubmissionMasters">
             <EntityTypeMapping TypeName="dbReportingSystemModel.SubmissionMaster">
               <MappingFragment StoreEntitySet="SubmissionMaster">
+                <ScalarProperty Name="InterviewFeedBack" ColumnName="InterviewFeedBack" />
+                <ScalarProperty Name="InterviewTime" ColumnName="InterviewTime" />
+                <ScalarProperty Name="AssingedTo" ColumnName="AssingedTo" />
+                <ScalarProperty Name="InterviewDate" ColumnName="InterviewDate" />
+                <ScalarProperty Name="InterviewStatus" ColumnName="InterviewStatus" />
+                <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
                 <ScalarProperty Name="JobPortalName" ColumnName="JobPortalName" />
                 <ScalarProperty Name="VendorCompanyName" ColumnName="VendorCompanyName" />
                 <ScalarProperty Name="ContactEmailId" ColumnName="ContactEmailId" />
