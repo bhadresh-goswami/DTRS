@@ -23,7 +23,9 @@ namespace DTRS.Areas.Recruiter.Controllers
         // GET: Recruiter/Dashboard
         public ActionResult Index()
         {
-            return View(db.SubmissionMasters);
+            int id = int.Parse(Session["userId"].ToString());
+            var user = db.UserLoginMasters.SingleOrDefault(a => a.LoginId == id);
+            return View(db.SubmissionMasters.Where(a => a.SBy == user.RocketUserName));
         }
 
         public ActionResult Create()
@@ -142,14 +144,14 @@ namespace DTRS.Areas.Recruiter.Controllers
             return View(user);
         }
         [HttpPost]
-        public ActionResult AddInterview(int? SId, SubmissionMaster model,string AssingedToOther)
+        public ActionResult AddInterview(int? SId, SubmissionMaster model, string AssingedToOther)
         {
 
-           
+
             try
             {
                 var submission = db.SubmissionMasters.Find(SId);
-               
+
                 submission.InterviewDate = model.InterviewDate;
                 submission.InterviewFeedBack = "";
                 submission.InterviewStatus = "Interview Scheduled";
@@ -166,23 +168,7 @@ namespace DTRS.Areas.Recruiter.Controllers
                     var user = db.UserLoginMasters.SingleOrDefault(a => a.RocketUserName == AssingedToOther);
                     toemailidlist += user.EmailId;
                 }
-                
 
-            if (sid == null)
-            {
-                TempData["Warning"] = "Please selecte the Submission!";
-                return RedirectToAction("Index");
-            }
-            try
-            {
-                int id = int.Parse(Session["userId"].ToString());
-                var user = db.SubmissionMasters.Find(id);
-
-                user.InterviewDate = model.InterviewDate;
-                user.InterviewFeedBack = "";
-                user.InterviewStatus = "Interview Scheduled";
-                user.InterviewTime = model.InterviewTime;
-                user.AssingedTo = model.AssingedTo;
 
                 db.SaveChanges();
                 TempData["Message"] = "Interview Schedule!";
