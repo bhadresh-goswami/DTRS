@@ -53,7 +53,19 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="LinqToExcel, Version=1.11.0.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\LinqToExcel.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.Data.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Interfaces, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.Interfaces.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -176,6 +188,7 @@
     <Compile Include="Areas\MarketingManager\MarketingManagerAreaRegistration.cs" />
     <Compile Include="Areas\Recruiter\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Recruiter\RecruiterAreaRegistration.cs" />
+    <Compile Include="Areas\Reports\Controllers\ExcelImportController.cs" />
     <Compile Include="Areas\Reports\Controllers\ManagerController.cs" />
     <Compile Include="Areas\Reports\Controllers\RecruitersController.cs" />
     <Compile Include="Areas\Reports\Controllers\ViewReportsController.cs" />
@@ -3969,6 +3982,7 @@
     <Content Include="Content\vendors\validator\index.html" />
     <Content Include="Content\vendors\validator\multifield.js" />
     <Content Include="Content\vendors\validator\validator.js" />
+    <Content Include="Doc\excel.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -5135,6 +5149,8 @@
     <Content Include="Areas\admin\Views\TechnologyMasters\Details.cshtml" />
     <Content Include="Areas\admin\Views\TechnologyMasters\Edit.cshtml" />
     <Content Include="Areas\admin\Views\TechnologyMasters\Index.cshtml" />
+    <Content Include="Doc\Candidate.xlsx" />
+    <Content Include="Areas\Reports\Views\ExcelImport\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
