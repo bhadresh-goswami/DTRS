@@ -141,7 +141,8 @@
                                             @Html.ActionLink("Details", "Details", new { id = item.SId }) |
                                             @Html.ActionLink("Delete", "Delete", new { id = item.SId })*@
                                             <div class="btn-group">
-                                                <button class="btn btn-round" onclick="showEditSubmission({SId:'@item.SId',SDate:'@item.SDate',STime:'@item.STime',SBy:'@item.SBy',CandidateName:'@item.CandidateName',Technology:'@item.Technology',Location:'@item.Location',Rate:'@item.Rate',ClientName:'@item.ClientName',VendorName:'@item.VendorName',ContactEmailId:'@item.ContactEmailId',VendorCompanyName:'@item.VendorCompanyName'})"><i class="glyphicon glyphicon-edit"></i></button>
+                                                <button class="btn btn-primary" onclick="showEditSubmission({SId:'@item.SId',SDate:'@item.SDate',STime:'@item.STime',SBy:'@item.SBy',CandidateName:'@item.CandidateName',Technology:'@item.Technology',Location:'@item.Location',Rate:'@item.Rate',ClientName:'@item.ClientName',VendorName:'@item.VendorName',ContactEmailId:'@item.ContactEmailId',VendorCompanyName:'@item.VendorCompanyName'})"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+                                                <button class="btn btn-primary" onclick="scheduleInterview(@item.SId)"><i class="glyphicon glyphicon-arrow-right"></i>Schedule Interview</button>
                                             </div>
                                         </td>
                                     </tr>
