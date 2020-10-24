@@ -56,6 +56,45 @@ namespace DTRS.Areas.Recruiter.Controllers
             }
             return RedirectToAction("Index");
         }
+        public ActionResult AddInterview(int? sid)
+        {
+            if (sid == null)
+            {
+                TempData["Warning"] = "Please selecte the Submission!";
+                return RedirectToAction("Index");
+            }
+            int id = int.Parse(Session["userId"].ToString());
+            var user = db.SubmissionMasters.Find(id);
+            return View(user);
+        }
+        [HttpPost]
+        public ActionResult AddInterview(int? sid, SubmissionMaster model)
+        {
+            if(sid == null)
+            {
+                TempData["Warning"] = "Please selecte the Submission!";
+                return RedirectToAction("Index");
+            }
+            try
+            {
+                int id = int.Parse(Session["userId"].ToString());
+                var user = db.SubmissionMasters.Find(id);
+               
+                user.InterviewDate = model.InterviewDate;
+                user.InterviewFeedBack = "";
+                user.InterviewStatus = "Interview Scheduled";
+                user.InterviewTime = model.InterviewTime;
+                user.AssingedTo = model.AssingedTo;
+                
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                TempData["Error"] = ex.Message;
+            }
+            return RedirectToAction("Index");
+        }
 
         [HttpPost]
         public ActionResult Edit(SubmissionMaster model)
